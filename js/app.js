@@ -3,6 +3,7 @@
 /*Globals */
 const imgObjectArray = [];
 let guesses = 25;
+const numberOfImages = 3; //How many images to be rendered on screen
 
 /*DOM Selectors */
 const section = document.querySelector('section');
@@ -12,7 +13,14 @@ let yearMessage = document.querySelector('#year');
 
 /*Utility Functions */
 const randomNum = function () {
-  return Math.floor(Math.random() * imgObjectArray.length);
+  const randomNumbers = [];
+  while (randomNumbers.length < 3) {
+    let numberToAdd = Math.floor(Math.random() * imgObjectArray.length);
+    if (!randomNumbers.includes(numberToAdd)) {
+      randomNumbers.push(numberToAdd);
+    }
+  }
+  return randomNumbers;
 };
 
 const getYear = function () {
@@ -39,7 +47,7 @@ Image.prototype.addView = function () {
   this.views++;
 };
 
-Image.prototype.render = function(){
+Image.prototype.render = function () {
   let imgElement = document.createElement('img');
   imgElement.setAttribute('src', this.image);
   section.appendChild(imgElement);
@@ -66,6 +74,10 @@ new Image('unicorn', '/img/unicorn.jpg');
 new Image('water-can', '/img/water-can.jpg');
 new Image('wine-glass', '/img/wine-glass.jpg');
 
+/* Build HTML */
+for (let i = 0; i < numberOfImages; i++) {
+  imgObjectArray[randomNum()[i]].render();
+}
 
 /*Event Handlers */
 

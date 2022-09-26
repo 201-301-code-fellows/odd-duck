@@ -17,6 +17,10 @@ const randomNum = function () {
   return Math.floor(Math.random() * imgObjectArray.length);
 };
 
+const getYear = function(){
+  return new Date().getFullYear();
+}
+
 /*Constructors */
 function Image(name, image) {
   this.name = name;

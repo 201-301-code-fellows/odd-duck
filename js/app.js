@@ -44,16 +44,15 @@ Image.prototype.addClick = function () {
   this.click++;
 };
 
-Image.prototype.addView = function () {
-  this.views++;
-};
 
 Image.prototype.render = function () {
   let imgElement = document.createElement('img');
   console.log(this.image);
   imgElement.setAttribute('src', this.image);
   imgElement.setAttribute('class', 'image');
+  imgElement.setAttribute('alt', this.alt);
   section.appendChild(imgElement);
+  this.views++;
 };
 
 /*Object Creation */
@@ -87,7 +86,12 @@ for (let i = 0; i < numberOfImages; i++) {
 let imgElement = document.querySelectorAll('.image');
 
 function voteClicking(e) {
-  console.log(e);
+  for (let image of imgObjectArray) {
+    if (e.target.alt === image.alt) {
+      image.addClick();
+      guesses--;
+    }
+  }
 }
 
 /*Event Listoners */

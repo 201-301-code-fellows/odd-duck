@@ -4,6 +4,7 @@
 const imgObjectArray = [];
 let guesses = 25;
 const numberOfImages = 3; //How many images to be rendered on screen
+//
 
 /*DOM Selectors */
 const section = document.querySelector('section');
@@ -11,18 +12,19 @@ let buttonElement = document.createElement('button');
 let footerMessage = document.querySelector('#copyright');
 let yearMessage = document.querySelector('#year');
 
+
 /*Utility Functions */
-const randomNum = function () {
+function randomNum() {
   const randomNumbers = [];
-  while (randomNumbers.length < 3) {
+
+  while (randomNumbers.length < numberOfImages) {
     let numberToAdd = Math.floor(Math.random() * imgObjectArray.length);
     if (!randomNumbers.includes(numberToAdd)) {
       randomNumbers.push(numberToAdd);
     }
   }
   return randomNumbers;
-};
-
+}
 const getYear = function () {
   return new Date().getFullYear();
 };
@@ -49,6 +51,7 @@ Image.prototype.addView = function () {
 
 Image.prototype.render = function () {
   let imgElement = document.createElement('img');
+  console.log(this.image);
   imgElement.setAttribute('src', this.image);
   section.appendChild(imgElement);
 };
@@ -75,12 +78,18 @@ new Image('water-can', '/img/water-can.jpg');
 new Image('wine-glass', '/img/wine-glass.jpg');
 
 /* Build HTML */
+let randomImageIndex = randomNum(); //Store an array of 3 random unique numbers
 for (let i = 0; i < numberOfImages; i++) {
-  imgObjectArray[randomNum()[i]].render();
+  imgObjectArray[imgObjectArray[randomImageIndex[i]].render()];
 }
 
 /*Event Handlers */
 
+
+
 /*Event Listoners */
+
+
+
 
 /*Logic */

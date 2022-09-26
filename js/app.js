@@ -5,6 +5,12 @@ const imgObjectArray = [];
 let guesses = 25;
 
 /*DOM Selectors */
+const section = document.querySelector('section');
+let imgElement = document.createElement('img');
+let buttonElement = document.createElement('button');
+let footerMessage = document.querySelector('#copyright');
+let yearMessage = document.querySelector('#year');
+
 
 /*Utility Functions */
 const randomNum = function () {

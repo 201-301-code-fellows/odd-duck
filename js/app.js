@@ -7,11 +7,10 @@ const numberOfImages = 3; //How many images to be rendered on screen
 //
 
 /*DOM Selectors */
-const section = document.querySelector('section');
+let section = document.querySelector('section');
 let buttonElement = document.createElement('button');
 let footerMessage = document.querySelector('#copyright');
 let yearMessage = document.querySelector('#year');
-
 
 /*Utility Functions */
 function randomNum() {
@@ -53,6 +52,7 @@ Image.prototype.render = function () {
   let imgElement = document.createElement('img');
   console.log(this.image);
   imgElement.setAttribute('src', this.image);
+  imgElement.setAttribute('class', 'image');
   section.appendChild(imgElement);
 };
 
@@ -68,7 +68,7 @@ new Image('cthulhu', '/img/cthulhu.jpg');
 new Image('dog-duck', '/img/dog-duck.jpg');
 new Image('dragon', '/img/dragon.jpg');
 new Image('pen', '/img/pen.jpg');
-new Image('pen-sweep', '/img/pen-sweep.jpg');
+new Image('pet-sweep', '/img/pet-sweep.jpg');
 new Image('scissors', '/img/scissors.jpg');
 new Image('shark', '/img/shark.jpg');
 new Image('sweep', '/img/sweep.png');
@@ -84,12 +84,14 @@ for (let i = 0; i < numberOfImages; i++) {
 }
 
 /*Event Handlers */
+let imgElement = document.querySelectorAll('.image');
 
-
+function voteClicking(e) {
+  console.log(e);
+}
 
 /*Event Listoners */
-
-
-
-
+for (let images of imgElement) {
+  images.addEventListener('click', voteClicking);
+}
 /*Logic */

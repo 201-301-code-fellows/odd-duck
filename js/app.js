@@ -39,6 +39,12 @@ Image.prototype.addView = function () {
   this.views++;
 };
 
+Image.prototype.render = function(){
+  let imgElement = document.createElement('img');
+  imgElement.setAttribute('src', this.image);
+  section.appendChild(imgElement);
+};
+
 /*Object Creation */
 new Image('bag', '/img/bag.jpg');
 new Image('banana', '/img/banana.jpg');
@@ -60,11 +66,6 @@ new Image('unicorn', '/img/unicorn.jpg');
 new Image('water-can', '/img/water-can.jpg');
 new Image('wine-glass', '/img/wine-glass.jpg');
 
-for (let imgs of imgObjectArray) {
-  let imgElement = document.createElement('img');
-  imgElement.setAttribute('src', imgs.image);
-  section.appendChild(imgElement);
-}
 
 /*Event Handlers */
 

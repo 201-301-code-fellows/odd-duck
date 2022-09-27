@@ -135,7 +135,8 @@ function createResults() {
       ul.appendChild(liElem);
     }
   }
-  buttonElement.removeEventListener('click', createResults);
+  h3.remove();
+  buttonElement.remove();
 }
 
 /*Event Listoners */
@@ -144,7 +145,6 @@ for (let images of imgElement) {
 }
 
 buttonElement.addEventListener('click', createResults);
-
 
 /* Update Footer */
 yearMessage.innerText = getYear();

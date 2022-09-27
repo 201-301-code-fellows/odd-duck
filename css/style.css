@@ -41,6 +41,8 @@ article {
 
 li {
   font-size: 1.3rem;
+  margin: 1rem;
+  list-style: circle;
 }
 
 footer {

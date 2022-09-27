@@ -4,6 +4,7 @@
 const imgObjectArray = [];
 let guesses = 25;
 const numberOfImages = 3; //How many images to be rendered on screen
+let previousRound = []; // tracks the 3 images generated so they are shown back to back
 //
 
 /*DOM Selectors */
@@ -19,10 +20,14 @@ function randomNum() {
 
   while (randomNumbers.length < numberOfImages) {
     let numberToAdd = Math.floor(Math.random() * imgObjectArray.length);
-    if (!randomNumbers.includes(numberToAdd)) {
+    if (
+      !randomNumbers.includes(numberToAdd) &&
+      !previousRound.includes(numberToAdd)
+    ) {
       randomNumbers.push(numberToAdd);
     }
   }
+  previousRound = randomNumbers;
   return randomNumbers;
 }
 const getYear = function () {

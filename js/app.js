@@ -9,8 +9,10 @@ const numberOfImages = 3; //How many images to be rendered on screen
 /*DOM Selectors */
 let section = document.querySelector('section');
 let buttonElement = document.createElement('button');
+let h3 = document.createElement('h3');
 let footerMessage = document.querySelector('#copyright');
 let yearMessage = document.querySelector('#year');
+let ul = document.createElement('ul');
 
 /*Utility Functions */
 function randomNum() {
@@ -44,7 +46,6 @@ Image.prototype.addClick = function () {
   this.click++;
 };
 
-
 Image.prototype.render = function () {
   let imgElement = document.createElement('img');
   console.log(this.image);
@@ -77,10 +78,14 @@ new Image('water-can', '/img/water-can.jpg');
 new Image('wine-glass', '/img/wine-glass.jpg');
 
 /* Build HTML */
-let randomImageIndex = randomNum(); //Store an array of 3 random unique numbers
-for (let i = 0; i < numberOfImages; i++) {
-  imgObjectArray[imgObjectArray[randomImageIndex[i]].render()];
+function getNewImages() {
+
+  let randomImageIndex = randomNum(); //Store an array of 3 random unique numbers
+  for (let i = 0; i < numberOfImages; i++) {
+    imgObjectArray[imgObjectArray[randomImageIndex[i]].render()];
+  }
 }
+getNewImages(); // Get initial 3 images
 
 /*Event Handlers */
 let imgElement = document.querySelectorAll('.image');
@@ -90,12 +95,37 @@ function voteClicking(e) {
     if (e.target.alt === image.alt) {
       image.addClick();
       guesses--;
+      getNewImages();
     }
   }
+  if (guesses === 0) {
+    //todo build button
+    // todo remove images
+    for (let images of imgElement) {
+      images.remove();
+    }
+  }
+  h3.innerText = 'Click the button to view the results';
+  section.appendChild(h3);
+  buttonElement.innerText = 'Results';
+  section.appendChild(buttonElement);
+  section.appendChild(ul);
+}
+
+function createResults() {
+  for (let data of imgObjectArray) {
+    let liElem = document.createElement('li');
+    if (data.views > 0) {
+      liElem.innerHTML = `<strong>${data.name}</strong> was viewed ${data.views} times and clicked ${data.click} times`;
+      ul.appendChild(liElem);
+    }
+  }
+  buttonElement.removeEventListener('click', createResults);
 }
 
 /*Event Listoners */
 for (let images of imgElement) {
   images.addEventListener('click', voteClicking);
 }
-/*Logic */
+
+buttonElement.addEventListener('click', createResults);

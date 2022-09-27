@@ -6,8 +6,8 @@ let guesses = 25;
 const numberOfImages = 3; //How many images to be rendered on screen
 let previousRound = []; // tracks the 3 images generated so they are shown back to back
 const imgNames = [];
-const views = [];
-const votes = [];
+const imgViews = [];
+const imgVotes = [];
 
 /*DOM Selectors */
 let section = document.querySelector('section');
@@ -112,8 +112,8 @@ function outOfGuesses() {
     imgs.remove();
     for (let img of imgObjectArray) {
       imgNames.push(img.name);
-      views.push(img.views);
-      views.push(img.votes);
+      imgViews.push(img.views);
+      imgVotes.push(img.click);
     }
   }
   h3.innerText = 'Click the button to view the results';
@@ -141,6 +141,7 @@ function voteClicking(e) {
 function createResults() {
   const myChart = new Chart(canvas, charObject);
   h3.remove();
+  document.querySelector('.chart').classList.remove('hide');
   buttonElement.remove();
 }
 
@@ -163,14 +164,14 @@ const charObject = {
     datasets: [
       {
         label: '# of Votes',
-        data: votes,
+        data: imgVotes,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
+          '#f1e0c5;',
+          '#c9b79c;',
+          '#71816D',
+          '#342A21',
+          '#DA667B',
+          '#DA667B',
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -184,7 +185,7 @@ const charObject = {
       },
       {
         label: '# of Views',
-        data: views,
+        data: imgViews,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -194,12 +195,12 @@ const charObject = {
           'rgba(255, 159, 64, 0.2)',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
+          'rgba(1, 99, 132, 111)',
+          'rgba(154, 262, 235, 1)',
+          'rgba(155, 106, 86, 111)',
+          'rgba(75, 192, 12, 11)',
+          'rgba(253, 102, 255, 100)',
+          'rgba(155, 159, 64, 100)',
         ],
         borderWidth: 1,
       },

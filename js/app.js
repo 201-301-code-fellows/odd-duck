@@ -5,14 +5,15 @@ const imgObjectArray = [];
 let guesses = 25;
 const numberOfImages = 3; //How many images to be rendered on screen
 let previousRound = []; // tracks the 3 images generated so they are shown back to back
-//
+const imgNames = [];
+const views = [];
+const votes = [];
 
 /*DOM Selectors */
 let section = document.querySelector('section');
 let buttonElement = document.createElement('button');
 let h3 = document.createElement('h3');
 let yearMessage = document.querySelector('#year');
-let ul = document.createElement('ul');
 let canvas = document.querySelector('#myChart').getContext('2d');
 
 /*Utility Functions */
@@ -109,13 +110,16 @@ function updateImgs() {
 function outOfGuesses() {
   for (let imgs of imgElement) {
     imgs.remove();
-    
+    for (let img of imgObjectArray) {
+      imgNames.push(img.name);
+      views.push(img.views);
+      views.push(img.votes);
+    }
   }
   h3.innerText = 'Click the button to view the results';
   section.appendChild(h3);
   buttonElement.innerText = 'Results';
   section.appendChild(buttonElement);
-  section.appendChild(ul);
 }
 
 function voteClicking(e) {
@@ -135,13 +139,6 @@ function voteClicking(e) {
 }
 
 function createResults() {
-  for (let data of imgObjectArray) {
-    let liElem = document.createElement('li');
-    if (data.views > 0) {
-      liElem.innerHTML = `<strong>${data.name}</strong> was viewed ${data.views} times and clicked ${data.click} times`;
-      ul.appendChild(liElem);
-    }
-  }
   const myChart = new Chart(canvas, charObject);
   h3.remove();
   buttonElement.remove();
@@ -158,14 +155,6 @@ buttonElement.addEventListener('click', createResults);
 yearMessage.innerText = getYear();
 
 /* Chart.js */
-const imgNames = [];
-const views = [];
-const votes = [];
-for (let img of imgObjectArray) {
-  imgNames.push(img.name);
-  views.push(img.views);
-  views.push(img.votes);
-}
 
 const charObject = {
   type: 'bar',

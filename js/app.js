@@ -10,7 +10,6 @@ const numberOfImages = 3; //How many images to be rendered on screen
 let section = document.querySelector('section');
 let buttonElement = document.createElement('button');
 let h3 = document.createElement('h3');
-let footerMessage = document.querySelector('#copyright');
 let yearMessage = document.querySelector('#year');
 let ul = document.createElement('ul');
 
@@ -145,3 +144,7 @@ for (let images of imgElement) {
 }
 
 buttonElement.addEventListener('click', createResults);
+
+
+/* Update Footer */
+yearMessage.innerText = getYear();

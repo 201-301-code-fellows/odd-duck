@@ -39,16 +39,30 @@ article {
   text-align: center;
 }
 
-li {
-  font-size: 1.3rem;
-  margin: 1rem;
-  list-style: circle;
-}
-
 footer {
   text-align: center;
   position: fixed;
   bottom: 0;
   width: 100%;
   color: gray;
+}
+
+button {
+  height: 50px;
+  width: 200px;
+  background-color: rgb(48, 186, 48);
+  font-weight: 700;
+}
+
+.chart {
+  width: 70vw;
+  height: 70vh;
+}
+
+.hide{
+  display: none;
+}
+
+img{
+  margin: 8rem -20%;
 }

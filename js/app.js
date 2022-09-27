@@ -4,14 +4,17 @@
 const imgObjectArray = [];
 let guesses = 25;
 const numberOfImages = 3; //How many images to be rendered on screen
-//
+let previousRound = []; // tracks the 3 images generated so they are shown back to back
+const imgNames = [];
+const imgViews = [];
+const imgVotes = [];
 
 /*DOM Selectors */
 let section = document.querySelector('section');
 let buttonElement = document.createElement('button');
 let h3 = document.createElement('h3');
 let yearMessage = document.querySelector('#year');
-let ul = document.createElement('ul');
+let canvas = document.querySelector('#myChart').getContext('2d');
 
 /*Utility Functions */
 function randomNum() {
@@ -19,10 +22,14 @@ function randomNum() {
 
   while (randomNumbers.length < numberOfImages) {
     let numberToAdd = Math.floor(Math.random() * imgObjectArray.length);
-    if (!randomNumbers.includes(numberToAdd)) {
+    if (
+      !randomNumbers.includes(numberToAdd) &&
+      !previousRound.includes(numberToAdd)
+    ) {
       randomNumbers.push(numberToAdd);
     }
   }
+  previousRound = randomNumbers;
   return randomNumbers;
 }
 const getYear = function () {
@@ -103,12 +110,16 @@ function updateImgs() {
 function outOfGuesses() {
   for (let imgs of imgElement) {
     imgs.remove();
+    for (let img of imgObjectArray) {
+      imgNames.push(img.name);
+      imgViews.push(img.views);
+      imgVotes.push(img.click);
+    }
   }
   h3.innerText = 'Click the button to view the results';
   section.appendChild(h3);
   buttonElement.innerText = 'Results';
   section.appendChild(buttonElement);
-  section.appendChild(ul);
 }
 
 function voteClicking(e) {
@@ -128,14 +139,9 @@ function voteClicking(e) {
 }
 
 function createResults() {
-  for (let data of imgObjectArray) {
-    let liElem = document.createElement('li');
-    if (data.views > 0) {
-      liElem.innerHTML = `<strong>${data.name}</strong> was viewed ${data.views} times and clicked ${data.click} times`;
-      ul.appendChild(liElem);
-    }
-  }
+  const myChart = new Chart(canvas, charObject);
   h3.remove();
+  document.querySelector('.chart').classList.remove('hide');
   buttonElement.remove();
 }
 
@@ -148,3 +154,63 @@ buttonElement.addEventListener('click', createResults);
 
 /* Update Footer */
 yearMessage.innerText = getYear();
+
+/* Chart.js */
+
+const charObject = {
+  type: 'bar',
+  data: {
+    labels: imgNames,
+    datasets: [
+      {
+        label: '# of Votes',
+        data: imgVotes,
+        backgroundColor: [
+          '#f1e0c5;',
+          '#c9b79c;',
+          '#71816D',
+          '#342A21',
+          '#DA667B',
+          '#DA667B',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
+      },
+      {
+        label: '# of Views',
+        data: imgViews,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(1, 99, 132, 111)',
+          'rgba(154, 262, 235, 1)',
+          'rgba(155, 106, 86, 111)',
+          'rgba(75, 192, 12, 11)',
+          'rgba(253, 102, 255, 100)',
+          'rgba(155, 159, 64, 100)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+};

@@ -30,9 +30,9 @@ const getYear = function () {
 };
 
 /*Constructors */
-function Image(name, image) {
+function Image(name, fileExtension = 'jpg') {
   this.name = name;
-  this.image = image;
+  this.image = `img/${name}.${fileExtension}`;
   this.alt = `An image of a ${name}`;
   this.views = 0;
   this.click = 0;
@@ -55,25 +55,25 @@ Image.prototype.render = function () {
 };
 
 /*Object Creation */
-new Image('bag', '/img/bag.jpg');
-new Image('banana', '/img/banana.jpg');
-new Image('bathroom', '/img/bathroom.jpg');
-new Image('boots', '/img/boots.jpg');
-new Image('breakfast', '/img/breakfast.jpg');
-new Image('bubblegum', '/img/bubblegum.jpg');
-new Image('chair', '/img/chair.jpg');
-new Image('cthulhu', '/img/cthulhu.jpg');
-new Image('dog-duck', '/img/dog-duck.jpg');
-new Image('dragon', '/img/dragon.jpg');
-new Image('pen', '/img/pen.jpg');
-new Image('pet-sweep', '/img/pet-sweep.jpg');
-new Image('scissors', '/img/scissors.jpg');
-new Image('shark', '/img/shark.jpg');
-new Image('sweep', '/img/sweep.png');
-new Image('tauntaun', '/img/tauntaun.jpg');
-new Image('unicorn', '/img/unicorn.jpg');
-new Image('water-can', '/img/water-can.jpg');
-new Image('wine-glass', '/img/wine-glass.jpg');
+new Image('bag');
+new Image('banana');
+new Image('bathroom');
+new Image('boots');
+new Image('breakfast');
+new Image('bubblegum');
+new Image('chair');
+new Image('cthulhu');
+new Image('dog-duck');
+new Image('dragon');
+new Image('pen');
+new Image('pet-sweep');
+new Image('scissors');
+new Image('shark');
+new Image('sweep', 'png');
+new Image('tauntaun');
+new Image('unicorn');
+new Image('water-can');
+new Image('wine-glass');
 
 /* Build HTML */
 function getNewImages() {

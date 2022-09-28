@@ -63,7 +63,7 @@ Image.prototype.render = function () {
 
 /*Object Creation */
 
-if (!localStorage) {
+if (!localStorage.length) {
   console.log('Creating new objects');
   new Image('bag');
   new Image('banana');

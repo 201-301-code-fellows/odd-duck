@@ -37,12 +37,12 @@ const getYear = function () {
 };
 
 /*Constructors */
-function Image(name, fileExtension = 'jpg') {
+function Image(name, fileExtension = 'jpg', views = 0, click = 0) {
   this.name = name;
   this.image = `img/${name}.${fileExtension}`;
   this.alt = `An image of a ${name}`;
-  this.views = 0;
-  this.click = 0;
+  this.views = views;
+  this.click = click;
 
   imgObjectArray.push(this);
 }
@@ -62,26 +62,32 @@ Image.prototype.render = function () {
 };
 
 /*Object Creation */
-new Image('bag');
-new Image('banana');
-new Image('bathroom');
-new Image('boots');
-new Image('breakfast');
-new Image('bubblegum');
-new Image('chair');
-new Image('cthulhu');
-new Image('dog-duck');
-new Image('dragon');
-new Image('pen');
-new Image('pet-sweep');
-new Image('scissors');
-new Image('shark');
-new Image('sweep', 'png');
-new Image('tauntaun');
-new Image('unicorn');
-new Image('water-can');
-new Image('wine-glass');
 
+if (!localStorage) {
+  console.log('Creating new objects');
+  new Image('bag');
+  new Image('banana');
+  new Image('bathroom');
+  new Image('boots');
+  new Image('breakfast');
+  new Image('bubblegum');
+  new Image('chair');
+  new Image('cthulhu');
+  new Image('dog-duck');
+  new Image('dragon');
+  new Image('pen');
+  new Image('pet-sweep');
+  new Image('scissors');
+  new Image('shark');
+  new Image('sweep', 'png');
+  new Image('tauntaun');
+  new Image('unicorn');
+  new Image('water-can');
+  new Image('wine-glass');
+} else {
+  console.log('creating objects from local');
+  objectsFromLocal(getLocalData());
+}
 /* Build HTML */
 function getNewImages() {
   let randomImageIndex = randomNum(); //Store an array of 3 random unique numbers
@@ -139,10 +145,27 @@ function voteClicking(e) {
 }
 
 function createResults() {
+  createLocalStorage();
   const myChart = new Chart(canvas, charObject);
   h3.remove();
   document.querySelector('.chart').classList.remove('hide');
   buttonElement.remove();
+}
+
+/* Local Storage Logic */
+function createLocalStorage() {
+  console.log(localStorage.setItem('imgs', JSON.stringify(imgObjectArray)));
+}
+
+function getLocalData() {
+  return JSON.parse(localStorage.getItem('imgs'));
+}
+
+function objectsFromLocal(data) {
+  for (let img of data) {
+    let extension = img.image.slice(-3);
+    new Image(img.name, extension, img.views, img.clicks);
+  }
 }
 
 /*Event Listoners */

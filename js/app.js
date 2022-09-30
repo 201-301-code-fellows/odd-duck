@@ -127,11 +127,11 @@ function updateImgs() {
 function outOfGuesses() {
   for (let imgs of imgElement) {
     imgs.remove();
-    for (let img of imgObjectArray) {
-      imgNames.push(img.name);
-      imgViews.push(img.views);
-      imgVotes.push(img.click);
-    }
+  }
+  for (let img of imgObjectArray) {
+    imgNames.push(img.name);
+    imgViews.push(img.views);
+    imgVotes.push(img.click);
   }
   h3.innerText = 'Click the button to view the results';
   section.appendChild(h3);
@@ -177,7 +177,6 @@ function getLocalData() {
 
 function objectsFromLocal(data) {
   for (let img of data) {
-    console.log(img);
     let extension = img.image.slice(-3); // assign the extension to the correct extension based on whats stored
     new Image(img.name, extension, img.views, img.clicks);
   }

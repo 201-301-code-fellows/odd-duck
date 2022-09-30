@@ -118,7 +118,7 @@ function updateImgs() {
     for (let img of imgObjectArray) {
       if (img.alt === imgElement[i].alt) {
         img.views++;
-        console.log(img.name);
+
       }
     }
   }

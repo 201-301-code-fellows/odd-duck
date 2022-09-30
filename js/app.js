@@ -116,8 +116,9 @@ function updateImgs() {
     imgElement[i].setAttribute('src', imgObjectArray[newIndexArray[i]].image);
     imgElement[i].setAttribute('alt', imgObjectArray[newIndexArray[i]].alt);
     for (let img of imgObjectArray) {
-      if (img.alt === imgElement[0].alt) {
+      if (img.alt === imgElement[i].alt) {
         img.views++;
+        console.log(img.name);
       }
     }
   }
@@ -193,6 +194,8 @@ buttonElement.addEventListener('click', createResults);
 yearMessage.innerText = getYear();
 
 /* Chart.js */
+
+
 
 const charObject = {
   type: 'bar',
